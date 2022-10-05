@@ -419,6 +419,22 @@ document.querySelector('form').addEventListener('submit', (e) => {
 async function build() {
   let UUID = document.getElementById('UUID').value;
   let apiKey = document.getElementById('api-key').value;
+  // add validation
+  //   check that the fields have the right number of characters inside (API and UUID are 36 characters long)
+
+  // it has only valid characters, so 0-9, a-f, and dash - — uppercase or lowercase
+  // Only allow to press the button if both are satisfied
+
+  if (
+    UUID.length !== 36 ||
+    apiKey.length !== 36 ||
+    !UUID.match(/^[0-9a-f-]+$/i) ||
+    !apiKey.match(/^[0-9a-f-]+$/i)
+  ) {
+    alert('Please enter a valid UUID and API key');
+    return;
+  }
+
   document.getElementById('main').innerHTML =
     '<form class="wrapper"><p>Loading..</p></div>';
 
