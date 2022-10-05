@@ -124,9 +124,8 @@ function randomTransformationItem(specialObj, partyMembersArr, repeat = false) {
     'shinySeed',
   ].filter((i) => specialObj[i] && specialObj[i] > 0);
   if (transformationItems.length > 0) {
-    html += `<input type="button" id="randomTransformationItem" value="Cast random transformation item on random party member"><label for="no-repeat"><input id="no-repeat" type="checkbox"${
-      repeat ? 'checked' : ''
-    }> Do not transform if already trasformed please</label><span id="no-repeat-span" class="not-found hide">No party mate available</span>`;
+    html += `<input type="button" id="randomTransformationItem" value="Cast random transformation item on random party member"><label for="no-repeat"><input id="no-repeat" type="checkbox"${repeat ? 'checked' : ''
+      }> Do not transform if already trasformed please</label><span id="no-repeat-span" class="not-found hide">No party mate available</span>`;
   } else {
     html += '<p id="not-found">No transformation items were found</p>';
   }
