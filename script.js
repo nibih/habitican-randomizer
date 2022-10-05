@@ -410,30 +410,46 @@ function equipRandomEquipment(gearOwned, allGear) {
     .getElementById('randomCostume')
     .addEventListener('click', () => equip('costume'));
 }
+
 document.querySelector('form').addEventListener('submit', (e) => {
   e.preventDefault();
   e.stopImmediatePropagation();
   build();
 });
 
+// listen for inputs info fields
+// add validation
+//check that the fields have the right number of characters inside (API and UUID are 36 characters long)
+
+// it has only valid characters, so 0-9, a-f, and dash - — uppercase or lowercase
+// Only allow to press the button if both are satisfied
+
+document.querySelector('form').addEventListener('input', (e) => {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  const api = document.getElementById('api-key').value;
+  const uuid = document.getElementById('UUID').value;
+  const button = document.querySelector('input[type="submit"]');
+  if (
+    api.length === 36 &&
+    uuid.length === 36 &&
+    api.match(/^[0-9a-f-]+$/i) &&
+    uuid.match(/^[0-9a-f-]+$/i)
+  ) {
+    document.getElementById('error').innerText = '';
+    button.disabled = false;
+  } else {
+    // add red text above the button saying "Please enter a valid API key and UUID"
+    document.getElementById('error').innerText =
+      'Please enter a valid API key and UUID';
+
+    button.disabled = true;
+  }
+});
+
 async function build() {
   let UUID = document.getElementById('UUID').value;
   let apiKey = document.getElementById('api-key').value;
-  // add validation
-  //   check that the fields have the right number of characters inside (API and UUID are 36 characters long)
-
-  // it has only valid characters, so 0-9, a-f, and dash - — uppercase or lowercase
-  // Only allow to press the button if both are satisfied
-
-  if (
-    UUID.length !== 36 ||
-    apiKey.length !== 36 ||
-    !UUID.match(/^[0-9a-f-]+$/i) ||
-    !apiKey.match(/^[0-9a-f-]+$/i)
-  ) {
-    alert('Please enter a valid UUID and API key');
-    return;
-  }
 
   document.getElementById('main').innerHTML =
     '<form class="wrapper"><p>Loading..</p></div>';
